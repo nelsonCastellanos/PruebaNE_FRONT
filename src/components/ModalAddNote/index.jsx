@@ -49,9 +49,9 @@ const ModalAddNote = () => {
                                         onChange={handleChange}
                                         name="registredType"
                                     >
-                                    <MenuItem value={""}>Thins to do</MenuItem>
-                                    <MenuItem value={""}>Deams</MenuItem>
-                                    <MenuItem value={""}>Nightmares</MenuItem>
+                                    <MenuItem value={1}>Thins</MenuItem>
+                                    <MenuItem value={2}>Dreams</MenuItem>
+                                    <MenuItem value={3}>Nightmares</MenuItem>
                                 </Select>
                             </FormControl>
                             <Button type='submit' disabled={isSubmitting}>Send</Button>  
