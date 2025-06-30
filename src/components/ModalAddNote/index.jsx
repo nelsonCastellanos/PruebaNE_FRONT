@@ -34,26 +34,27 @@ const ModalAddNote = () => {
                     }}>
                     {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
                         <Form>                           
-                                <TextField error={touched.name && Boolean(errors.name)} onChange={handleChange} value={values. nname}  name='name'/>
-                                <TextField error={touched.number && Boolean(errors.number)} onChange={handleChange} value={values.number} type="number"  name='number'/>
+                            <TextField error={touched.name && Boolean(errors.name)} onChange={handleChange} value={values. nname}  name='name'/>
+                            <TextField error={touched.number && Boolean(errors.number)} onChange={handleChange} value={values.number} type="number"  name='number'/> 
+
                           
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                                    <Select
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Thoughts</InputLabel>
+                                <Select
                                         error={touched.registredType && Boolean(errors.registredType)}
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
                                         value={values.registredType}
-                                        label="Age"
+                                        label="Thoughts"
                                         onChange={handleChange}
                                         name="registredType"
                                     >
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                    </Select>
-                                </FormControl>
-                                <Button type='submit' disabled={isSubmitting}>Send</Button>
-                            
+                                    <MenuItem value={""}>Thins to do</MenuItem>
+                                    <MenuItem value={""}>Deams</MenuItem>
+                                    <MenuItem value={""}>Nightmares</MenuItem>
+                                </Select>
+                            </FormControl>
+                            <Button type='submit' disabled={isSubmitting}>Send</Button>  
                         </Form>)}
                 </Formik>
             </div>
