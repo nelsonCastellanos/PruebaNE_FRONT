@@ -5,7 +5,6 @@ import './App.css'
 import AddNote from './components/AddNote'
 import Header from './components/Header'
 import ItemNoteCount from './components/ItemNoteCount'
-import ItemNoteDetail from './components/ItemNoteDetail'
 import ListNoteDetail from './components/ListNoteDetaill'
 import ModalAddNote from './components/ModalAddNote'
 import { Provider } from 'react-redux';
@@ -14,38 +13,47 @@ import { store } from './store'
 
 function App() {
   const [count, setCount] = useState(0)
-  const itemTitle = [{ title: "primer titulo", description: "primera descripcion", icono: "primer icono" }, { title: "segundo titulo", description: "segundo descripcion", icono: "segundo icono" }, { title: "tercer titulo", description: "tercer descripcion", icono: "tercer icono" }]
+  const [showModal, setShowModal] = useState(false)
+  const itemTitle = [
+    { title: "First title", description: "First description", icon: "First icon" },
+    { title: "Second title", description: "Second description", icon: "Second icon" },
+    { title: "Third title", description: "Third description", icon: "Third icon" }
+  ]
   return (
     <>
     <Provider store={store}>
       <Header />
-      {itemTitle.map((data, index) => (
-        <ItemNoteCount
-          key={index}
-          title={data.title}
-          description={data.description}
-          icon={data.icon}
-        />
-      ))}
-      <AddNote /> 
-      <ItemNoteCount /> 
-      <ItemNoteDetail />
-      <ListNoteDetail />  
-      <ModalAddNote />
-      <h1 className='bg-red-500
-      '>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="main-grid-container flex flex-col gap-8 max-w-[1550px] mx-auto my-4 px-0 pt-12">
+        <div className="flex flex-row gap-6 justify-between items-center flex-wrap">
+          {itemTitle.map((data, index) => (
+            <ItemNoteCount
+              key={index}
+              title={data.title}
+              description={data.description}
+              icon={data.icon}
+              index={index}
+            />
+          ))}
+        </div>
+        <div className="flex flex-row gap-6 items-center flex-nowrap w-full justify-between">
+          <div className="shrink-0 h-full flex items-stretch">
+            <div className="h-full flex items-stretch">
+              <AddNote onOpenModal={() => setShowModal(true)} />
+            </div>
+          </div>
+          <div className="flex-1 flex justify-end min-w-[350px] max-w-[600px]">
+            <ListNoteDetail />
+          </div>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      </Provider>
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+ 
+            <ModalAddNote onClose={() => setShowModal(false)} />
+
+        </div>
+      )}
+    </Provider>
     </>
   )
 }
