@@ -1,26 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { addNote } from '../../features/notesSlices';
 import './index.css';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import RoomIcon from '@mui/icons-material/Room';
 
+const recordTypeOptions = [
+    { value: 'Collection', label: 'Collection' },
+    { value: 'Incident', label: 'Incident' },
+    { value: 'Maintenance', label: 'Maintenance' },
+];
 
-const ModalAddNote = () => {
-    const [age, setAge] = useState('')
-    const dispatch = useDispatch()
-    const validationLogic = Yup.object ({name:Yup.string().required(), registredType:Yup.string().required(), number:Yup.number().required()})
-    const initialValues = {name:"",registredType: "", number:0}
-    const handleChange = (event) => {
-        setAge(event.target.value);
+const ModalAddNote = ({ onClose }) => {
+    const dispatch = useDispatch();
+    const initialValues = {
+        recordType: '',
+        title: '',
+        route: '',
+        amount: '',
+        description: ''
     };
+    const validationLogic = Yup.object({
+        recordType: Yup.string().required('Required'),
+        title: Yup.string().required('Required'),
+        route: Yup.string().required('Required'),
+        amount: Yup.number().typeError('Must be a number').positive('Must be positive').required('Required'),
+        description: Yup.string().required('Required'),
+    });
     return (
 
         <div>
@@ -49,9 +66,9 @@ const ModalAddNote = () => {
                                         onChange={handleChange}
                                         name="registredType"
                                     >
-                                    <MenuItem value={1}>Thins</MenuItem>
-                                    <MenuItem value={2}>Dreams</MenuItem>
-                                    <MenuItem value={3}>Nightmares</MenuItem>
+                                    <MenuItem value={""}>Thins to do</MenuItem>
+                                    <MenuItem value={""}>Deams</MenuItem>
+                                    <MenuItem value={""}>Nightmares</MenuItem>
                                 </Select>
                             </FormControl>
                             <Button type='submit' disabled={isSubmitting}>Send</Button>  
