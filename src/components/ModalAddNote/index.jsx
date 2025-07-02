@@ -36,7 +36,15 @@ const ModalAddNote = ({ onClose }) => {
         recordType: Yup.string().required('Required'),
         title: Yup.string().required('Required'),
         route: Yup.string().required('Required'),
-        amount: Yup.number().typeError('Must be a number').positive('Must be positive').required('Required'),
+        // Amount only required for Collection
+        amount: Yup.number()
+          .typeError('Must be a number')
+          .positive('Must be positive')
+          .when('recordType', {
+            is: 'Collection',
+            then: schema => schema.required('Required'),
+            otherwise: schema => schema.notRequired(),
+          }),
         description: Yup.string().required('Required'),
     });
     return (
@@ -115,26 +123,29 @@ const ModalAddNote = ({ onClose }) => {
                                 ),
                               }}
                             />
-                            <TextField
-                              fullWidth
-                              margin="normal"
-                              id="amount"
-                              name="amount"
-                              label="Monto Recaudado"
-                              placeholder="Ej: $50,000"
-                              value={values.amount}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              error={touched.amount && Boolean(errors.amount)}
-                              helperText={touched.amount && errors.amount}
-                              InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <AttachMoneyIcon />
-                                  </InputAdornment>
-                                ),
-                              }}
-                            />
+                            {/* Mostrar monto solo si es Recaudo */}
+                            {values.recordType === 'Collection' && (
+                              <TextField
+                                fullWidth
+                                margin="normal"
+                                id="amount"
+                                name="amount"
+                                label="Monto Recaudado"
+                                placeholder="Ej: $50,000"
+                                value={values.amount}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={touched.amount && Boolean(errors.amount)}
+                                helperText={touched.amount && errors.amount}
+                                InputProps={{
+                                  startAdornment: (
+                                    <InputAdornment position="start">
+                                      <AttachMoneyIcon />
+                                    </InputAdornment>
+                                  ),
+                                }}
+                              />
+                            )}
                             <TextField
                               fullWidth
                               margin="normal"
