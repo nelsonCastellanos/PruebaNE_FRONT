@@ -11,8 +11,6 @@ import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { addNote } from '../../features/notesSlices';
 import './index.css';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RoomIcon from '@mui/icons-material/Room';
 import InputAdornment from '@mui/material/InputAdornment';
