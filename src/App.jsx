@@ -6,7 +6,10 @@ import AddNote from './components/AddNote'
 import Header from './components/Header'
 import ItemNoteCount from './components/ItemNoteCount'
 import ListNoteDetail from './components/ListNoteDetaill'
-import ModalAddNote from './components/ModalAddNote'
+import ModalAddNote from './components/ModalAddNote';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import DescriptionIcon from '@mui/icons-material/Description';
 import { Provider } from 'react-redux';
 import { store } from './store'
 
@@ -15,10 +18,10 @@ function App() {
   const [count, setCount] = useState(0)
   const [showModal, setShowModal] = useState(false)
   const itemTitle = [
-    { title: "First title", description: "First description", icon: "First icon" },
-    { title: "Second title", description: "Second description", icon: "Second icon" },
-    { title: "Third title", description: "Third description", icon: "Third icon" }
-  ]
+    { title: "Total Recaudado", description: "$0", icon: <MonetizationOnIcon fontSize="large" /> },
+    { title: "Incidencias", description: "0", icon: <WarningAmberIcon fontSize="large" /> },
+    { title: "Total Notas", description: "0", icon: <DescriptionIcon fontSize="large" /> },
+  ];
   return (
     <>
     <Provider store={store}>
@@ -47,10 +50,9 @@ function App() {
         </div>
       </div>
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
- 
-            <ModalAddNote onClose={() => setShowModal(false)} />
+        <div className="fixed inset-0 bg-white bg-opacity-40 flex items-center justify-center z-50">
 
+            <ModalAddNote onClose={() => setShowModal(false)} />
         </div>
       )}
     </Provider>

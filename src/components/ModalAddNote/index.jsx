@@ -15,6 +15,9 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RoomIcon from '@mui/icons-material/Room';
+import InputAdornment from '@mui/material/InputAdornment';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import BuildIcon from '@mui/icons-material/Build';
 
 const recordTypeOptions = [
     { value: 'Collection', label: 'Collection' },
@@ -50,28 +53,114 @@ const ModalAddNote = ({ onClose }) => {
                         dispatch(addNote("text"))
                     }}>
                     {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
-                        <Form>                           
-                            <TextField error={touched.name && Boolean(errors.name)} onChange={handleChange} value={values. nname}  name='name'/>
-                            <TextField error={touched.number && Boolean(errors.number)} onChange={handleChange} value={values.number} type="number"  name='number'/> 
-
-                          
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Thoughts</InputLabel>
-                                <Select
-                                        error={touched.registredType && Boolean(errors.registredType)}
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={values.registredType}
-                                        label="Thoughts"
-                                        onChange={handleChange}
-                                        name="registredType"
-                                    >
-                                    <MenuItem value={""}>Thins to do</MenuItem>
-                                    <MenuItem value={""}>Deams</MenuItem>
-                                    <MenuItem value={""}>Nightmares</MenuItem>
-                                </Select>
+                        <Form>
+                          <Box>
+                            <h2 className="text-xl font-semibold mb-4">
+                              Registra información sobre recaudos, incidencias o mantenimiento
+                            </h2>
+                            <FormControl fullWidth margin="normal">
+                              <InputLabel id="record-type-label">Tipo de Registro</InputLabel>
+                              <Select
+                                labelId="record-type-label"
+                                id="recordType"
+                                name="recordType"
+                                value={values.recordType}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={touched.recordType && Boolean(errors.recordType)}
+                                label="Tipo de Registro"
+                              >
+                                <MenuItem value="">
+                                  <em>Seleccione</em>
+                                </MenuItem>
+                                <MenuItem value="Collection">
+                                  <AttachMoneyIcon fontSize="small" sx={{ mr: 1 }} /> Recaudo
+                                </MenuItem>
+                                <MenuItem value="Incident">
+                                  <WarningAmberIcon fontSize="small" sx={{ mr: 1 }} /> Incidencia
+                                </MenuItem>
+                                <MenuItem value="Maintenance">
+                                  <BuildIcon fontSize="small" sx={{ mr: 1 }} /> Mantenimiento
+                                </MenuItem>
+                              </Select>
                             </FormControl>
-                            <Button type='submit' disabled={isSubmitting}>Send</Button>  
+                            <TextField
+                              fullWidth
+                              margin="normal"
+                              id="title"
+                              name="title"
+                              label="Título"
+                              placeholder="Ej: Recaudo Ruta 15A"
+                              value={values.title}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={touched.title && Boolean(errors.title)}
+                              helperText={touched.title && errors.title}
+                            />
+                            <TextField
+                              fullWidth
+                              margin="normal"
+                              id="route"
+                              name="route"
+                              label="Ruta"
+                              placeholder="Ej: Ruta 15A - Centro"
+                              value={values.route}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={touched.route && Boolean(errors.route)}
+                              helperText={touched.route && errors.route}
+                              InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <RoomIcon />
+                                  </InputAdornment>
+                                ),
+                              }}
+                            />
+                            <TextField
+                              fullWidth
+                              margin="normal"
+                              id="amount"
+                              name="amount"
+                              label="Monto Recaudado"
+                              placeholder="Ej: $50,000"
+                              value={values.amount}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={touched.amount && Boolean(errors.amount)}
+                              helperText={touched.amount && errors.amount}
+                              InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <AttachMoneyIcon />
+                                  </InputAdornment>
+                                ),
+                              }}
+                            />
+                            <TextField
+                              fullWidth
+                              margin="normal"
+                              id="description"
+                              name="description"
+                              label="Descripción"
+                              placeholder="Describe los detalles del registro..."
+                              multiline
+                              minRows={3}
+                              value={values.description}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              error={touched.description && Boolean(errors.description)}
+                              helperText={touched.description && errors.description}
+                            />
+                            <Box display="flex" justifyContent="flex-end" gap={2} mt={2}>
+                              <Button variant="contained" color="primary" type="submit" disabled={isSubmitting}>
+                                Guardar Nota
+                              </Button>
+                              <Button variant="outlined" onClick={onClose}>
+                                Cancelar
+                              </Button>
+                            </Box>
+                          </Box>
                         </Form>)}
                 </Formik>
             </div>

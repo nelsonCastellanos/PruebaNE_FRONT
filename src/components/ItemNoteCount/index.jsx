@@ -4,7 +4,7 @@ import './index.css';
 const colorVariants = [
   'bg-blue-500 text-white',
   'bg-orange-400 text-white',
-  'bg-yellow-300 text-slate-900'
+  'bg-orange-500 text-white'
 ];
 
 const ItemNoteCount = ({title, description, icon, index = 0})=> {
